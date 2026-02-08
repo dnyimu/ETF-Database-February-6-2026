@@ -160,18 +160,6 @@ SET
 WHERE 
 Ticker_Symbol = "EWZ" ;
 
-
-
-
-
-
-
-
-
-
-
-
-
  
 -- Adding Columns. I added day's return %, highest_price, lowest_price, Volume and YTD Return %
 
