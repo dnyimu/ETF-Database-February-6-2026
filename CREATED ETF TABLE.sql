@@ -9,9 +9,6 @@ Currency VARCHAR(60),
 Fund_Manager VARCHAR (60)
 );
 
---  Renaming Column
-    ALTER TABLE etf_feb_6_2026
-    RENAME COLUMN `Stock_Name` TO ETF_Name; 
     
 -- Inserting Rows
 INSERT INTO etf_feb_6_2026 (ETF_Name, Ticker_Symbol, Opening_Price, Closing_Price, Currency, Fund_Manager)
@@ -29,10 +26,48 @@ VALUES
     ("iShares Inc MSCI Japan ETF", "EWJ", 88.77, 89.45, "USD", "BlackRock"),
     ("IShares Inc MSCI Brazil ETF", "EWZ", 37.42, 37.56, "USD", "BlackRock"); 
     
-    -- Updating a value in my table example. Changing the currency of "VTI" ETF from CAD to USD
-    UPDATE etf_feb_6_2026
-    SET currency ="USD"
-    where Ticker_Symbol="VT";
+
+-- Adding Columns. I added day's return %, highest_price, lowest_price, Volume and YTD Return %
+
+ALTER table etf_feb_6_2026
+ADD
+Day_Return_Percentage DECIMAL (4,2),
+ADD
+Highest_Price DECIMAL (6,2),
+ADD
+Lowest_Price DECIMAL (6,2),
+ADD
+Volume INTEGER ( 10),
+ADD
+YTD_Return_Percentage DECIMAL(4,2);
+
+
+-- Re-arranging order of columns that I added
+
+ALTER TABLE etf_feb_6_2026
+MODIFY day_return_Percentage DECIMAL (4)
+AFTER Closing_Price;
+
+ALTER TABLE etf_feb_6_2026
+MODIFY Lowest_Price DECIMAL(6)
+AFTER day_return_Percentage; 
+
+ALTER TABLE etf_feb_6_2026
+MODIFY Highest_Price DECIMAL(6)
+AFTER Lowest_Price; 
+
+ALTER TABLE etf_feb_6_2026
+MODIFY Highest_Price DECIMAL (6)
+AFTER Lowest_Price;
+
+ALTER TABLE etf_feb_6_2026
+MODIFY Volume INTEGER (6)
+AFTER Highest_Price;
+
+ALTER TABLE etf_feb_6_2026
+MODIFY YTD_Return_Percentage DECIMAL(4)
+AFTER Volume;
+
     
     -- Adding values to the columns that I added. They were all NULL
  UPDATE etf_feb_6_2026
@@ -157,59 +192,31 @@ SET
 WHERE 
 Ticker_Symbol = "EWZ" ;
 
- 
--- Adding Columns. I added day's return %, highest_price, lowest_price, Volume and YTD Return %
+     
 
-ALTER table etf_feb_6_2026
-ADD
-Day_Return_Percentage DECIMAL (4,2),
-ADD
-Highest_Price DECIMAL (6,2),
-ADD
-Lowest_Price DECIMAL (6,2),
-ADD
-Volume INTEGER ( 10),
-ADD
-YTD_Return_Percentage DECIMAL(4,2);
 
--- Re-arranging order of columns that I added
-ALTER TABLE etf_feb_6_2026
-MODIFY day_return_Percentage DECIMAL (4)
-AFTER Closing_Price;
-
-ALTER TABLE etf_feb_6_2026
-MODIFY Lowest_Price DECIMAL(6)
-AFTER day_return_Percentage; 
-
-ALTER TABLE etf_feb_6_2026
-MODIFY Highest_Price DECIMAL(6)
-AFTER Lowest_Price; 
-
-ALTER TABLE etf_feb_6_2026
-MODIFY Highest_Price DECIMAL (6)
-AFTER Lowest_Price;
-
-ALTER TABLE etf_feb_6_2026
-MODIFY Volume INTEGER (6)
-AFTER Highest_Price;
-
-ALTER TABLE etf_feb_6_2026
-MODIFY YTD_Return_Percentage DECIMAL(4)
-AFTER Volume;
 
 -- Updating data Types example
 ALTER TABLE etf_feb_6_2026
+	
 MODIFY COLUMN
 Lowest_Price DECIMAL(6,2),
+	
 MODIFY COLUMN
 Highest_Price DECIMAL(6,2) ,
+	
 MODIFY COLUMN
 day_return_Percentage DECIMAL (6,2) ,
+	
 MODIFY COLUMN
 YTD_Return_Percentage DECIMAL(4,2);
 
 
--- Dropping colums example
+--  Renaming Column
+    ALTER TABLE etf_feb_6_2026
+    RENAME COLUMN `Stock_Name` TO ETF_Name; 
+
+-- Dropping columns example
 ALTER TABLE etf_feb_6_2026
  DROP COLUMN
  day_return_Percentage,
@@ -218,12 +225,19 @@ ALTER TABLE etf_feb_6_2026
  DROP COLUMN
  Lowest_Price ;
  
- 
-    -- Deleting  a Row
+
+-- Deleting  a Row
     DELETE 
     from etf_feb_6_2026 
     WHERE Ticker_Symbol=  "VEQT";
     
+
+-- Updating a value in my table example. Changing the currency of "VTI" ETF from CAD to USD
+    UPDATE etf_feb_6_2026
+    SET currency ="USD"
+    where Ticker_Symbol="VT";
+
+
 
 
 
