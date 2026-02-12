@@ -27,7 +27,7 @@ VALUES
     ("IShares Inc MSCI Brazil ETF", "EWZ", 37.42, 37.56, "USD", "BlackRock"); 
     
 
--- Adding Columns. I added day's return %, highest_price, lowest_price, Volume and YTD Return %
+-- Adding Columns. I added day's return %, Performance_Summary, highest_price, lowest_price, Volume and YTD Return %
 
 ALTER table etf_feb_6_2026
 ADD
@@ -40,6 +40,8 @@ ADD
 Volume INTEGER ( 10),
 ADD
 YTD_Return_Percentage DECIMAL(4,2);
+ADD
+Performance_Summary Varchar(10);
 
 
 -- Re-arranging order of columns that I added
@@ -67,6 +69,11 @@ AFTER Highest_Price;
 ALTER TABLE etf_feb_6_2026
 MODIFY YTD_Return_Percentage DECIMAL(4)
 AFTER Volume;
+
+ALTER TABLE etf_feb_6_2026
+MODIFY Performance_Summary Varchar (10)
+AFTER Day_Return_Percentage;
+
 
     
     -- Adding values to the columns that I added. They were all NULL
@@ -192,9 +199,8 @@ SET
 WHERE 
 Ticker_Symbol = "EWZ" ;
 
-     
-
-
+UPDATE etf_feb_6_2026
+SET Performance_Summary = "Profit";
 
 -- Updating data Types example
 ALTER TABLE etf_feb_6_2026
@@ -237,6 +243,7 @@ ALTER TABLE etf_feb_6_2026
     SET currency ="USD"
     where Ticker_Symbol="VT";
 
+-- I added another column 
 
 
 
